@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Entities;
+using WebApplication1.Repositories;
 
 namespace WebApplication1.Controllers
 {
@@ -13,33 +14,25 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class AddressController : ControllerBase
     {
-        private readonly StudentsContext _context;
+        readonly IGenericRepository<Address> _addressRepository;
 
-        public AddressController(StudentsContext context)
+        public AddressController(IGenericRepository<Address> addressRepository)
         {
-            _context = context;
+            _addressRepository = addressRepository;
         }
 
         // GET: api/Address
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Address>>> GetAddresses()
         {
-          if (_context.Addresses == null)
-          {
-              return NotFound();
-          }
-            return await _context.Addresses.ToListAsync();
+            return Ok(await _addressRepository.GetAllAsync());
         }
 
         // GET: api/Address/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Address>> GetAddress(int id)
         {
-          if (_context.Addresses == null)
-          {
-              return NotFound();
-          }
-            var address = await _context.Addresses.FindAsync(id);
+            var address = await _addressRepository.GetByIdAsync(id);
 
             if (address == null)
             {
@@ -59,11 +52,9 @@ namespace WebApplication1.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(address).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                _addressRepository.UpdateAsync(address);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -76,7 +67,6 @@ namespace WebApplication1.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 
@@ -85,27 +75,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<ActionResult<Address>> PostAddress(Address address)
         {
-          if (_context.Addresses == null)
-          {
-              return Problem("Entity set 'StudentDBContext.Addresses'  is null.");
-          }
-            _context.Addresses.Add(address);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (AddressExists(address.AddressId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            await _addressRepository.AddAsync(address);
             return CreatedAtAction("GetAddress", new { id = address.AddressId }, address);
         }
 
@@ -113,25 +83,19 @@ namespace WebApplication1.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAddress(int id)
         {
-            if (_context.Addresses == null)
+            if (_addressRepository.GetByIdAsync(id) == null)
             {
                 return NotFound();
             }
-            var address = await _context.Addresses.FindAsync(id);
-            if (address == null)
-            {
-                return NotFound();
-            }
-
-            _context.Addresses.Remove(address);
-            await _context.SaveChangesAsync();
-
+            var student = await _addressRepository.GetByIdAsync(id);
+            await _addressRepository.DeleteAsync(student);
             return NoContent();
         }
 
         private bool AddressExists(int id)
         {
-            return (_context.Addresses?.Any(e => e.AddressId == id)).GetValueOrDefault();
+            var address =  _addressRepository.GetByIdAsync(id);
+            return address != null;
         }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Entities;
+using WebApplication1.Repositories;
 
 namespace WebApplication1.Controllers
 {
@@ -13,33 +14,25 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
-        private readonly StudentsContext _context;
+         readonly IGenericRepository<Student> _studentRepository;
 
-        public StudentController(StudentsContext context)
+        public StudentController(IGenericRepository<Student> studentRepository)
         {
-            _context = context;
+            _studentRepository = studentRepository;
         }
 
         // GET: api/Student
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
         {
-          if (_context.Students == null)
-          {
-              return NotFound();
-          }
-            return await _context.Students.ToListAsync();
+            return Ok(await _studentRepository.GetAllAsync());
         }
 
         // GET: api/Student/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Student>> GetStudent(int id)
         {
-          if (_context.Students == null)
-          {
-              return NotFound();
-          }
-            var student = await _context.Students.FindAsync(id);
+            var student = await _studentRepository.GetByIdAsync(id);
 
             if (student == null)
             {
@@ -59,11 +52,9 @@ namespace WebApplication1.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(student).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                _studentRepository.UpdateAsync(student);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -85,13 +76,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<ActionResult<Student>> PostStudent(Student student)
         {
-          if (_context.Students == null)
-          {
-              return Problem("Entity set 'StudentDBContext.Students'  is null.");
-          }
-            _context.Students.Add(student);
-            await _context.SaveChangesAsync();
-
+            await _studentRepository.AddAsync(student);
             return CreatedAtAction("GetStudent", new { id = student.Id }, student);
         }
 
@@ -99,25 +84,23 @@ namespace WebApplication1.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStudent(int id)
         {
-            if (_context.Students == null)
+            if (_studentRepository.GetByIdAsync(id) == null)
             {
                 return NotFound();
             }
-            var student = await _context.Students.FindAsync(id);
-            if (student == null)
-            {
-                return NotFound();
-            }
-
-            _context.Students.Remove(student);
-            await _context.SaveChangesAsync();
-
+            var student = await _studentRepository.GetByIdAsync(id);
+            await _studentRepository.DeleteAsync(student);
             return NoContent();
         }
 
         private bool StudentExists(int id)
         {
-            return (_context.Students?.Any(e => e.Id == id)).GetValueOrDefault();
+            var student = _studentRepository.GetByIdAsync(id);
+            if (student.Id == null)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

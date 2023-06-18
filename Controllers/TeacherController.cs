@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Entities;
+using WebApplication1.Repositories;
 
 namespace WebApplication1.Controllers
 {
@@ -13,40 +14,31 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class TeacherController : ControllerBase
     {
-        private readonly StudentsContext _context;
+        private readonly IGenericRepository<Teacher> _teacherRepository;
 
-        public TeacherController(StudentsContext context)
+        public TeacherController(IGenericRepository<Teacher> teacherRepository)
         {
-            _context = context;
+            _teacherRepository = teacherRepository;
         }
 
         // GET: api/Teacher
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Teacher>>> GetTeachers()
         {
-          if (_context.Teachers == null)
-          {
-              return NotFound();
-          }
-          return await _context.Teachers.ToListAsync();
+            return Ok(await _teacherRepository.GetAllAsync());
         }
 
         // GET: api/Teacher/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Teacher>> GetTeacher(int id)
         {
-          if (_context.Teachers == null)
-          {
-              return NotFound();
-          }
-          var teacher = await _context.Teachers.FindAsync(id);
+           var teacher = await _teacherRepository.GetByIdAsync(id);
+           if (!TeacherExists(id))
+           {
+               return NotFound();
+           }
 
-          if (teacher == null)
-          {
-              return NotFound();
-          }
-
-          return teacher;
+           return teacher;
         }
 
         // PUT: api/Teacher/5
@@ -54,16 +46,13 @@ namespace WebApplication1.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTeacher(int id, Teacher teacher)
         {
-            if (id != teacher.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(teacher).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                if (id != teacher.Id)
+                {
+                    return NotFound();
+                }
+                await _teacherRepository.UpdateAsync(teacher);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -85,13 +74,11 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<ActionResult<Teacher>> PostTeacher(Teacher teacher)
         {
-          if (_context.Teachers == null)
+          if (teacher == null)
           {
-              return Problem("Entity set 'StudentsContext.Teachers'  is null.");
+              return Problem("Entity set 'Teachers'  is null.");
           }
-            _context.Teachers.Add(teacher);
-            await _context.SaveChangesAsync();
-
+            await _teacherRepository.AddAsync(teacher);
             return CreatedAtAction("GetTeacher", new { id = teacher.Id }, teacher);
         }
 
@@ -99,25 +86,20 @@ namespace WebApplication1.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTeacher(int id)
         {
-            if (_context.Teachers == null)
-            {
-                return NotFound();
-            }
-            var teacher = await _context.Teachers.FindAsync(id);
+            var teacher = await _teacherRepository.GetByIdAsync(id);
             if (teacher == null)
             {
                 return NotFound();
             }
 
-            _context.Teachers.Remove(teacher);
-            await _context.SaveChangesAsync();
-
+            await _teacherRepository.DeleteAsync(teacher);
             return NoContent();
         }
 
         private bool TeacherExists(int id)
         {
-            return (_context.Teachers?.Any(e => e.Id == id)).GetValueOrDefault();
+            var teachers = _teacherRepository.GetByIdAsync(id);
+            return teachers != null;
         }
     }
 }

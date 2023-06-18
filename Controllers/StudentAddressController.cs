@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Entities;
+using WebApplication1.Repositories;
 
 namespace WebApplication1.Controllers
 {
@@ -13,34 +14,25 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class StudentAddressController : ControllerBase
     {
-        private readonly StudentsContext _context;
+        private readonly IGenericRepository<StudentAddress> _studentAddressRepository;
 
-        public StudentAddressController(StudentsContext context)
+        public StudentAddressController(IGenericRepository<StudentAddress> studentAddressRepository)
         {
-            _context = context;
+            _studentAddressRepository =studentAddressRepository;
         }
 
         // GET: api/StudentAddress
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StudentAddress>>> GetStudentAddresses()
         {
-          if (_context.StudentAddresses == null)
-          {
-              return NotFound();
-          }
-            return await _context.StudentAddresses.ToListAsync();
+            return Ok(await _studentAddressRepository.GetAllAsync());
         }
 
         // GET: api/StudentAddress/5
         [HttpGet("{id}")]
         public async Task<ActionResult<StudentAddress>> GetStudentAddress(int id)
         {
-          if (_context.StudentAddresses == null)
-          {
-              return NotFound();
-          }
-            var studentAddress = await _context.StudentAddresses.FindAsync(id);
-
+            var studentAddress = await _studentAddressRepository.GetByIdAsync(id);
             if (studentAddress == null)
             {
                 return NotFound();
@@ -59,11 +51,9 @@ namespace WebApplication1.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(studentAddress).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                await _studentAddressRepository.UpdateAsync(studentAddress);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -85,14 +75,14 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public async Task<ActionResult<StudentAddress>> PostStudentAddress(StudentAddress studentAddress)
         {
-          if (_context.StudentAddresses == null)
+          if (studentAddress == null)
           {
               return Problem("Entity set 'StudentsContext.StudentAddresses'  is null.");
           }
-            _context.StudentAddresses.Add(studentAddress);
+          
             try
             {
-                await _context.SaveChangesAsync();
+                await _studentAddressRepository.AddAsync(studentAddress);
             }
             catch (DbUpdateException)
             {
@@ -113,25 +103,20 @@ namespace WebApplication1.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStudentAddress(int id)
         {
-            if (_context.StudentAddresses == null)
-            {
-                return NotFound();
-            }
-            var studentAddress = await _context.StudentAddresses.FindAsync(id);
+            var studentAddress = await _studentAddressRepository.GetByIdAsync(id);
             if (studentAddress == null)
             {
                 return NotFound();
             }
 
-            _context.StudentAddresses.Remove(studentAddress);
-            await _context.SaveChangesAsync();
-
+            await _studentAddressRepository.DeleteAsync(studentAddress);
             return NoContent();
         }
 
         private bool StudentAddressExists(int id)
         {
-            return (_context.StudentAddresses?.Any(e => e.Id == id)).GetValueOrDefault();
+            var studentAddress = _studentAddressRepository.GetByIdAsync(id);
+            return studentAddress != null;
         }
     }
 }
