@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Folder Include="Client\student-management\src\app\component\" />
       <Folder Include="Controllers" />
       <Folder Include="Services" />
     </ItemGroup>
