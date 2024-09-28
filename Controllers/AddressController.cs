@@ -14,7 +14,7 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class AddressController : ControllerBase
     {
-        readonly IGenericRepository<Address> _addressRepository;
+        private readonly IGenericRepository<Address> _addressRepository;
 
         public AddressController(IGenericRepository<Address> addressRepository)
         {

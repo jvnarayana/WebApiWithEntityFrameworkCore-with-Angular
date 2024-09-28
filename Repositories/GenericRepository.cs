@@ -15,10 +15,10 @@ public interface IGenericRepository<T> where T: class
 }
 public class GenericRepository<T> : IGenericRepository<T> where T: class
 {
-     readonly StudentsContext _dbContext;
+     readonly StudentsDBContext _dbContext;
      readonly DbSet<T> _dbSet;
 
-    public GenericRepository(StudentsContext dbContext)
+    public GenericRepository(StudentsDBContext dbContext)
     {
         this._dbContext = dbContext;
         this._dbSet = dbContext.Set<T>();
