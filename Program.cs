@@ -8,6 +8,15 @@ var connectionString = builder.Configuration.GetConnectionString("StudentDBConne
 builder.Services.AddDbContext<StudentsDBContext>(x => x.UseSqlServer(connectionString));
 // Add services to the container.
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin", builder =>
+    {
+        builder.WithOrigins("http://localhost:4200") // Specify your Angular app URL
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -31,6 +40,7 @@ app.UseSwagger(options =>
     options.SerializeAsV2 = true;
 });
 app.UseRouting();
+app.UseCors("AllowSpecificOrigin");
 app.UseAuthorization();
 
 app.MapControllers();

@@ -11,7 +11,7 @@ const routes: Routes = [
   {path:'create', component: StudentCreateComponent},
   {path:'edit/:id', component:StudentEditComponent},
   {path:'delete/:id', component: StudentDeleteComponent},
-  { path: '**', redirectTo: '/students' },
+  { path: '**', redirectTo: '/students', pathMatch: 'full' },
 
 ];
 

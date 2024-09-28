@@ -8,6 +8,7 @@ import { StudentCreateComponent } from './component/student-create/student-creat
 import { StudentEditComponent } from './component/student-edit/student-edit.component';
 import { StudentDeleteComponent } from './component/student-delete/student-delete.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

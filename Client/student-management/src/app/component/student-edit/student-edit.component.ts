@@ -18,24 +18,29 @@ export class StudentEditComponent implements OnInit {
     private studentService: StudentService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    this.studentForm = this.fb.group({
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      address: ['', [Validators.required]]
+    });
+  }
 
   ngOnInit(): void {
     this.studentId = +this.route.snapshot.paramMap.get('id')!;
+    this.loadStudentData();
+  }
+  loadStudentData(): void{
     this.studentService.getStudentByID(this.studentId).subscribe((student) => {
-      this.studentForm = this.fb.group({
-        firstName: [student.firstName, [Validators.required]],
-        lastName: [student.lastName, [Validators.required]],
-        city: [student.city, [Validators.required]],
-        address: [student.address, [Validators.required]]
-      });
+      this.studentForm.patchValue(student);
     });
   }
 
   onSubmit(): void {
     if (this.studentForm.valid) {
       this.studentService.updateStudent(this.studentId, this.studentForm.value).subscribe(() => {
-        this.router.navigate(['/students']);
+        this.router.navigate(['']);
       });
     }
   }
