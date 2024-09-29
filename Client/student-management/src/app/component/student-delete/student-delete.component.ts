@@ -20,11 +20,11 @@ ngOnInit() {
 }
   deleteStudent(): void {
     this.studentService.deleteStudent(this.studentId).subscribe(() => {
-      this.router.navigate(['/students']);
+      this.router.navigate(['']);
     });
   }
 
   cancel(): void {
-    this.router.navigate(['/students']);
+    this.router.navigate(['']);
   }
 }

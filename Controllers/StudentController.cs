@@ -84,10 +84,6 @@ namespace WebApplication1.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStudent(int id)
         {
-            if (_studentRepository.GetByIdAsync(id) == null)
-            {
-                return NotFound();
-            }
             var student = await _studentRepository.GetByIdAsync(id);
             await _studentRepository.DeleteAsync(student);
             return NoContent();

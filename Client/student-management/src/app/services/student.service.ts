@@ -23,6 +23,7 @@ private  API_BASE_URL = 'http://localhost:5081/api/student'
   }
 
   updateStudent(id: number, student: Student): Observable<Student> {
+  student.id = id;
     return this.httpClient.put<Student>(`${this.API_BASE_URL}/${id}`, student);
   }
 

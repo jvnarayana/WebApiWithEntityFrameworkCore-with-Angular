@@ -27,7 +27,7 @@ export class StudentCreateComponent implements OnInit{
     if(this.studentForm?.valid){
       this.studentService.createStudent(this.id, this.studentForm.value).subscribe(() =>
       {
-        this.router.navigate(['/students']);
+        this.router.navigate(['']);
       });
     }
   }
