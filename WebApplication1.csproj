@@ -9,11 +9,12 @@
 
     <ItemGroup>
       <Folder Include="Client\student-management\src\app\component\" />
-      <Folder Include="Controllers" />
       <Folder Include="Services" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.18" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.18" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.18" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.18">
@@ -42,6 +43,8 @@
       <Compile Remove="Entities\StudentAddress.cs" />
       <Compile Remove="Controllers\StudentAddressController.cs" />
       <Compile Remove="Entities\StudentDBContext.cs" />
+      <Compile Remove="Controllers\UsersController.cs" />
+      <Compile Remove="Entities\StudentsDBContext.cs" />
     </ItemGroup>
 
     <ItemGroup>
