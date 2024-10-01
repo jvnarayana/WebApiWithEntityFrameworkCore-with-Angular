@@ -24,6 +24,7 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Actions </th>
       <td mat-cell *matCellDef="let student">
+        <button mat-raised-button class="btn-width" color="accent"  [routerLink]="['/create']">Create</button>
         <button mat-raised-button color="primary" [routerLink]="['/edit', student.id]" style="margin-right: 8px">Edit</button>
         <button mat-raised-button color="warn" [routerLink]="['/delete', student.id]">Delete</button>
       </td>
