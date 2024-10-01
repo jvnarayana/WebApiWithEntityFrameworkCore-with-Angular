@@ -1,24 +1,35 @@
-<h2>Student List</h2>
-<table>
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>First Name</th>
-    <th>Last Name</th>
-    <th>Address</th>
-    <th>City</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let student of students">
-    <td>{{student.id}}</td>
-    <td>{{student.firstName}}</td>
-    <td>{{student.lastName}}</td>
-    <td>{{student.address}}</td>
-    <td>{{student.city}}</td>
-    <td> <button (click)="deleteStudent(student.id)"> Delete</button>
-      <a [routerLink]="['/edit', student.id]">Edit</a>
-    </td>
-  </tr>
-  </tbody>
-</table>
+<mat-card>
+  <table mat-table [dataSource]="students" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let student"> {{student.id}} </td>
+    </ng-container>
+    <ng-container matColumnDef="firstname">
+      <th mat-header-cell *matHeaderCellDef> First Name </th>
+      <td mat-cell *matCellDef="let student"> {{student.firstName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="lastname">
+      <th mat-header-cell *matHeaderCellDef> Last Name </th>
+      <td mat-cell *matCellDef="let student"> {{student.lastName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef> Address </th>
+      <td mat-cell *matCellDef="let student"> {{student.address}} </td>
+    </ng-container>
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef> City </th>
+      <td mat-cell *matCellDef="let student"> {{student.city}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let student">
+        <button mat-raised-button color="primary" [routerLink]="['/edit', student.id]" style="margin-right: 8px">Edit</button>
+        <button mat-raised-button color="warn" (click)="deleteStudent(student.id)">Delete</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['id', 'firstname', 'lastname', 'address', 'city', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['id','firstname', 'lastname','address','city', 'actions'];"></tr>
+  </table>
+</mat-card>

@@ -44,7 +44,6 @@
       <Compile Remove="Controllers\StudentAddressController.cs" />
       <Compile Remove="Entities\StudentDBContext.cs" />
       <Compile Remove="Controllers\UsersController.cs" />
-      <Compile Remove="Entities\StudentsDBContext.cs" />
     </ItemGroup>
 
     <ItemGroup>

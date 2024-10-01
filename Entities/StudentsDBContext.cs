@@ -11,5 +11,6 @@ public class StudentsDBContext : DbContext
 
     public DbSet<Student> Student { get; set; }
     public DbSet<Address> Address { get; set; }
+    public DbSet<User> Users { get; set; }
     
 }

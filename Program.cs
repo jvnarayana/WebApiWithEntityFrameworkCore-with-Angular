@@ -8,7 +8,7 @@ using WebApplication1.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("StudentDBConnection");
-builder.Services.AddDbContext<StudentDBContext>(x => x.UseSqlServer(connectionString));
+builder.Services.AddDbContext<StudentsDBContext>(x => x.UseSqlServer(connectionString));
 // Add services to the container.
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
