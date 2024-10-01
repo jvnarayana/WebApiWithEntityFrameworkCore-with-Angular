@@ -16,6 +16,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { ConfirmDeleteDialogComponent } from './component/student-delete/confirm-delete-dialog/confirm-delete-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { MatCardModule } from '@angular/material/card';
     StudentListComponent,
     StudentCreateComponent,
     StudentEditComponent,
-    StudentDeleteComponent
+    StudentDeleteComponent,
+    ConfirmDeleteDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ import { MatCardModule } from '@angular/material/card';
     MatFormFieldModule,
     MatIconModule,
     MatCardModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

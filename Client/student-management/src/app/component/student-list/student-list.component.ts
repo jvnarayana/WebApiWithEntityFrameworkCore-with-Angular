@@ -22,9 +22,4 @@ ngOnInit(): void
     );
   }
 
-  deleteStudent(id: number){
-  this.studentService.deleteStudent(id).subscribe(() => {
-    this.loadStudents();
-  });
-  }
 }

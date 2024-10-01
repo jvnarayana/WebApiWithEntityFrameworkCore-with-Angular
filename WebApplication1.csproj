@@ -35,6 +35,8 @@
     <ItemGroup>
       <None Remove=".dockerignore" />
       <None Remove="Migrations\**" />
+      <None Remove="Client\student-management\src\app\student-delete\**" />
+      <None Remove="Client\student-management\src\app\src\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -44,14 +46,20 @@
       <Compile Remove="Controllers\StudentAddressController.cs" />
       <Compile Remove="Entities\StudentDBContext.cs" />
       <Compile Remove="Controllers\UsersController.cs" />
+      <Compile Remove="Client\student-management\src\app\student-delete\**" />
+      <Compile Remove="Client\student-management\src\app\src\**" />
     </ItemGroup>
 
     <ItemGroup>
       <EmbeddedResource Remove="Migrations\**" />
+      <EmbeddedResource Remove="Client\student-management\src\app\student-delete\**" />
+      <EmbeddedResource Remove="Client\student-management\src\app\src\**" />
     </ItemGroup>
 
     <ItemGroup>
       <Content Remove="Migrations\**" />
+      <Content Remove="Client\student-management\src\app\student-delete\**" />
+      <Content Remove="Client\student-management\src\app\src\**" />
     </ItemGroup>
 
 </Project>

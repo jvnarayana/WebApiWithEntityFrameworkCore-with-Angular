@@ -33,4 +33,7 @@ export class StudentCreateComponent implements OnInit{
   }
 
 
+  cancel() {
+    this.router.navigate(['']);
+  }
 }
