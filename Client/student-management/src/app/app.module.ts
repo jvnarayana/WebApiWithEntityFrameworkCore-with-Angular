@@ -18,6 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { ConfirmDeleteDialogComponent } from './component/student-delete/confirm-delete-dialog/confirm-delete-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {MatDialogModule} from "@angular/material/dialog";
     MatIconModule,
     MatCardModule,
     MatDialogModule,
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
