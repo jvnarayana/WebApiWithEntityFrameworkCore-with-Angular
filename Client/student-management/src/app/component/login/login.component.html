@@ -1,0 +1,22 @@
+<!-- src/app/components/login/login.component.html -->
+<div class="login-container">
+  <h2>Login</h2>
+
+  <form (submit)="login()">
+    <mat-form-field class="full-width">
+      <mat-label>Username</mat-label>
+      <input matInput type="text" [(ngModel)]="userName" name="username" required />
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" [(ngModel)]="password" name="password" required />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" style="margin-right: 10px">Login</button>
+  </form>
+
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+</div>

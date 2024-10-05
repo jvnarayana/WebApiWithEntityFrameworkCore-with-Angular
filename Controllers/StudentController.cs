@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using WebApplication1.Entities;
@@ -28,8 +30,9 @@ namespace WebApplication1.Controllers
 
         // GET: api/Student
         [HttpGet]
-            public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
+            public async Task<ActionResult<List<Student>>> GetStudents()
             {
+                Student student = new Student();
                 string cacheKey = "StudentList";
                 string cacheStudents = await _cache.GetStringAsync(cacheKey);
                 if (!string.IsNullOrEmpty(cacheStudents))
@@ -38,7 +41,11 @@ namespace WebApplication1.Controllers
                     return Ok(students);
                 }
 
-                var studentsList = await _studentRepository.GetAllAsync();
+                var studentsList = await _studentRepository
+                    .GetAll()
+                    .Include(s => s.Address)
+                    .ToListAsync();
+                 
                 var cacheStudentsOptions = new DistributedCacheEntryOptions
                 {
                     AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(1)

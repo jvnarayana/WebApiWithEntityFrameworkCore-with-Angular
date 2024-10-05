@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using WebApplication1.Entities;
 
 namespace WebApplication1.Repositories;
@@ -17,12 +18,12 @@ public class UserRepository : IUserRepository
     }
     public async Task<User?> GetUserByUserNameAsync(string username)
     {
-       return _studentsDbContext!.Users!.FirstOrDefault(x => x.UserName == username);
+        return _studentsDbContext!.User!.FirstOrDefault(x => x.UserName == username);
     }
 
     public async Task AddUserAsync(User users)
     {
-        await _studentsDbContext.Users.AddAsync(users);
+        await _studentsDbContext.User.AddAsync(users);
         await _studentsDbContext.SaveChangesAsync();
 
     }

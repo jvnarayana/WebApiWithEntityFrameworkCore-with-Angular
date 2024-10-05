@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using WebApplication1.DTO;
@@ -10,6 +11,8 @@ using WebApplication1.Repositories;
 
 namespace WebApplication1.Controllers;
 
+[Route("api/[controller]")]
+[ApiController]
 public class AuthController : ControllerBase
 {
     private readonly IUserRepository _userRepository;
@@ -24,7 +27,7 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Register([FromBody] UserDTO userDto)
     {
         var existingUser = _userRepository.GetUserByUserNameAsync(userDto.UserName!);
-        if (existingUser != null)
+        if (existingUser!= null && existingUser.Id > 1)
         {
             return BadRequest("user already exists");
         }
@@ -36,19 +39,19 @@ public class AuthController : ControllerBase
 
     }
 
-    [HttpPost("Login")]
-    public async Task<IActionResult> Login([FromBody] UserDTO userDto)
-    {
-        var user = await _userRepository.GetUserByUserNameAsync(userDto.UserName);
-        if (user == null || BCrypt.Net.BCrypt.Verify(userDto.Password, user.PasswordHash))
+        [HttpGet("Login")]
+        public async Task<IActionResult> Login([FromQuery] string userName, [FromQuery] string password)
         {
-            return Unauthorized("Invalid Creds");
+            var user = await _userRepository.GetUserByUserNameAsync(userName);
+            if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
+            {
+                return Unauthorized("Invalid Creds");
+            }
+
+            var jwtToken = GenerateJWTToken(user);
+            return Ok( new { token = jwtToken});
+
         }
-
-        var jwtToken = GenerateJWTToken(user);
-        return Ok(jwtToken);
-
-    }
 
     private string GenerateJWTToken(User user)
     {

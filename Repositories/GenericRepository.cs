@@ -8,7 +8,9 @@ namespace WebApplication1.Repositories;
 public interface IGenericRepository<T> where T: class
 {
     Task<T> GetByIdAsync(int id);
+    IQueryable<T> GetAll();
     Task<IEnumerable<T>> GetAllAsync();
+
     Task AddAsync(T entity);
     Task UpdateAsync(T entity);
     Task DeleteAsync(T entity);
@@ -27,10 +29,14 @@ public class GenericRepository<T> : IGenericRepository<T> where T: class
     {
         return await _dbSet.FindAsync(id);
     }
-
     public async Task<IEnumerable<T>> GetAllAsync()
     {
         return await _dbSet.ToListAsync();
+    }
+
+    public IQueryable<T> GetAll()
+    {
+        return _dbSet.AsQueryable();
     }
 
     public async Task AddAsync(T entity)

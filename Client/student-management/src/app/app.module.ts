@@ -8,7 +8,7 @@ import { StudentCreateComponent } from './component/student-create/student-creat
 import { StudentEditComponent } from './component/student-edit/student-edit.component';
 import { StudentDeleteComponent } from './component/student-delete/student-delete.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -19,6 +19,16 @@ import { MatCardModule } from '@angular/material/card';
 import { ConfirmDeleteDialogComponent } from './component/student-delete/confirm-delete-dialog/confirm-delete-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {JwtInterceptor} from "./interceptors/jwt.interceptor";
+import {JwtModule} from "@auth0/angular-jwt";
+import {AuthService} from "./services/auth.service";
+import {LoginComponent} from "./component/login/login.component";
+
+
+export function tokenGetter(){
+  return localStorage.getItem('jwt_token');
+}
+
 
 @NgModule({
   declarations: [
@@ -27,7 +37,8 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     StudentCreateComponent,
     StudentEditComponent,
     StudentDeleteComponent,
-    ConfirmDeleteDialogComponent
+    ConfirmDeleteDialogComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -44,8 +55,21 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     MatCardModule,
     MatDialogModule,
     MatPaginatorModule,
+    JwtModule.forRoot({
+      config: {
+         tokenGetter: tokenGetter,
+        allowedDomains:['localhost:5081'],
+        disallowedRoutes: []
+      }
+    })
   ],
-  providers: [],
+  providers: [
+    AuthService,{
+     provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

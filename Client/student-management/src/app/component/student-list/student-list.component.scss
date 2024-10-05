@@ -1,3 +1,12 @@
 .btn-width{
   margin-right: 10px;
 }
+.header {
+  display: flex;
+  justify-content: flex-end; /* Aligns buttons to the right */
+  margin: 10px;
+}
+
+.header button {
+  margin-left: 10px; /* Adds space between buttons */
+}

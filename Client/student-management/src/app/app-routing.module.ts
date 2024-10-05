@@ -4,10 +4,13 @@ import {StudentListComponent} from "./component/student-list/student-list.compon
 import {StudentCreateComponent} from "./component/student-create/student-create.component";
 import {StudentEditComponent} from "./component/student-edit/student-edit.component";
 import {StudentDeleteComponent} from "./component/student-delete/student-delete.component";
+import {authGuard} from "./guards/auth.guard";
+import {LoginComponent} from "./component/login/login.component";
 
 
 const routes: Routes = [
-  {path: '', component: StudentListComponent},
+  {path: '', component: StudentListComponent, canActivate: [authGuard]},
+  {path: 'login', component: LoginComponent},
   {path:'create', component: StudentCreateComponent},
   {path:'edit/:id', component:StudentEditComponent},
   {path:'delete/:id', component: StudentDeleteComponent},
