@@ -2,7 +2,8 @@ export interface Student{
   id: number;
   firstName: string;
   lastName: string;
-  city: string
+  city: string,
+  addressId: number,
   address:Address
 }
 export interface Address {

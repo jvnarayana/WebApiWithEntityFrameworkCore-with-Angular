@@ -22,7 +22,8 @@ export class StudentCreateComponent implements OnInit{
       firstName : ['', [Validators.required]],
       lastName : ['', [Validators.required]],
       city: ['', [Validators.required]],
-      address: ['', [Validators.required]]
+      addressId:['',[Validators.required]],
+      address: ['']
     })
     this.loadAddresses();
   }
@@ -34,7 +35,11 @@ export class StudentCreateComponent implements OnInit{
   }
   onSubmit(): void {
     if(this.studentForm?.valid){
-      this.studentService.createStudent(this.id, this.studentForm.value).subscribe(() =>
+      const studentData = {
+        ...this.studentForm.value,
+        addressId: this.studentForm.get('addressId')?.value
+      };
+      this.studentService.createStudent(this.id, studentData).subscribe(() =>
       {
         this.router.navigate(['']);
       });

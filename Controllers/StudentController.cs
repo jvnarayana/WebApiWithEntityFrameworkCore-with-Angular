@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
+using WebApplication1.DTO;
 using WebApplication1.Entities;
 using WebApplication1.Repositories;
 using JsonSerializer = System.Text.Json.JsonSerializer;
@@ -116,10 +117,20 @@ namespace WebApplication1.Controllers
         // POST: api/Student
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Student>> PostStudent(Student? student)
+        public async Task<ActionResult<List<Student>>> PostStudent(StudentCreateDTO? studentDTO)
         {
+            var student = new Student
+            {
+                FirstName = studentDTO.FirstName,
+                LastName = studentDTO.LastName,
+                AddressId = studentDTO.AddressId,
+                City = studentDTO.City,
+                Address = null
+            };
             await _studentRepository.AddAsync(student);
-            return CreatedAtAction("GetStudent", new { id = student.Id }, student);
+            string cacheKey = "StudentList";
+            await _cache.RemoveAsync(cacheKey);
+            return CreatedAtAction("GetStudents", student);
         }
 
         // DELETE: api/Student/5
