@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {StudentService} from "../../services/student.service";
+import {AddressService} from "../../services/address.service";
+import {Address} from "../../models/student.model";
 
 
 @Component({
@@ -12,7 +14,8 @@ import {StudentService} from "../../services/student.service";
 export class StudentCreateComponent implements OnInit{
   studentForm!: FormGroup;
   id!: number;
-  constructor(private fb: FormBuilder, private studentService: StudentService, private router: Router) {
+  addresses: Address[] = [];
+  constructor(private fb: FormBuilder, private studentService: StudentService, private addressService: AddressService, private router: Router) {
   }
   ngOnInit(): void {
     this.studentForm = this.fb.group({
@@ -21,8 +24,14 @@ export class StudentCreateComponent implements OnInit{
       city: ['', [Validators.required]],
       address: ['', [Validators.required]]
     })
+    this.loadAddresses();
   }
 
+  loadAddresses(): void{
+    this.addressService.getAddresses().subscribe(data =>{
+      this.addresses = data;
+    });
+  }
   onSubmit(): void {
     if(this.studentForm?.valid){
       this.studentService.createStudent(this.id, this.studentForm.value).subscribe(() =>
@@ -36,4 +45,5 @@ export class StudentCreateComponent implements OnInit{
   cancel() {
     this.router.navigate(['']);
   }
+
 }

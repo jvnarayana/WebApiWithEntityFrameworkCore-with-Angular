@@ -30,9 +30,13 @@
     </mat-form-field>
 
     <!-- Address -->
-    <mat-form-field appearance="fill" class="full-width">
+    <mat-form-field appearance="fill" class="txtBox-size">
       <mat-label>Address</mat-label>
-      <input matInput formControlName="address" placeholder="Enter Address" />
+      <mat-select formControlName="address" placeholder="Select Address">
+        <mat-option *ngFor="let address of addresses" [value]="address">
+          {{ address.streetNumber }}, {{ address.city }}, {{address.state}} {{address.zipcode}}
+        </mat-option>
+      </mat-select>
       <mat-error *ngIf="studentForm.get('address')?.invalid && studentForm.get('address')?.touched">
         Address is required
       </mat-error>

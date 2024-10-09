@@ -14,9 +14,9 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class TeacherController : ControllerBase
     {
-        private readonly IGenericRepository<Teacher> _teacherRepository;
+        private readonly IGenericRepository<Teacher?> _teacherRepository;
 
-        public TeacherController(IGenericRepository<Teacher> teacherRepository)
+        public TeacherController(IGenericRepository<Teacher?> teacherRepository)
         {
             _teacherRepository = teacherRepository;
         }
@@ -44,7 +44,7 @@ namespace WebApplication1.Controllers
         // PUT: api/Teacher/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTeacher(int id, Teacher teacher)
+        public async Task<IActionResult> PutTeacher(int id, Teacher? teacher)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace WebApplication1.Controllers
         // POST: api/Teacher
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Teacher>> PostTeacher(Teacher teacher)
+        public async Task<ActionResult<Teacher>> PostTeacher(Teacher? teacher)
         {
           if (teacher == null)
           {

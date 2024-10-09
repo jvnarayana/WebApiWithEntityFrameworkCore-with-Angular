@@ -33,7 +33,14 @@ export class StudentEditComponent implements OnInit {
   }
   loadStudentData(): void{
     this.studentService.getStudentByID(this.studentId).subscribe((student) => {
-      this.studentForm.patchValue(student);
+      const fullAddress = `${student.address.streetNumber || ''} ${student.address.city || ''} ${student.address.state || ''} ${student.address.zipcode || ''}`;
+
+      this.studentForm.patchValue({
+        firstName: student.firstName,
+        lastName: student.lastName,
+        city: student.city,
+        address: fullAddress.trim()
+      });
     });
   }
 
@@ -45,4 +52,7 @@ export class StudentEditComponent implements OnInit {
     }
   }
 
+  cancel() {
+    this.router.navigate(['']);
+  }
 }

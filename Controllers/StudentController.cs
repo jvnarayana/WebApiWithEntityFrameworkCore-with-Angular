@@ -19,10 +19,10 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
-         readonly IGenericRepository<Student> _studentRepository;
+         readonly IGenericRepository<Student?> _studentRepository;
          private readonly IDistributedCache _cache;
 
-        public StudentController(IGenericRepository<Student> studentRepository, IDistributedCache cache)
+        public StudentController(IGenericRepository<Student?> studentRepository, IDistributedCache cache)
         {
             _studentRepository = studentRepository;
             _cache = cache;
@@ -67,7 +67,8 @@ namespace WebApplication1.Controllers
                 var studentFromCache = JsonSerializer.Deserialize<Student>(cacheStudent);
                 return Ok(studentFromCache);
             }
-            var student = await _studentRepository.GetByIdAsync(id);
+
+            var student = await _studentRepository.GetByIdAsync(id, x=>x.Address);
 
             if (student == null)
             {
@@ -84,7 +85,7 @@ namespace WebApplication1.Controllers
         // PUT: api/Student/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutStudent(int id, Student student)
+        public async Task<IActionResult> PutStudent(int id, Student? student)
         {
             if (id != student.Id)
             {
@@ -115,7 +116,7 @@ namespace WebApplication1.Controllers
         // POST: api/Student
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Student>> PostStudent(Student student)
+        public async Task<ActionResult<Student>> PostStudent(Student? student)
         {
             await _studentRepository.AddAsync(student);
             return CreatedAtAction("GetStudent", new { id = student.Id }, student);

@@ -40,6 +40,6 @@
 
     <!-- Submit Button -->
     <button mat-raised-button color="primary" class="btn-width" type="submit" [disabled]="studentForm.invalid">Save</button>
-    <button mat-raised-button color="warn" type="submit">Cancel</button>
+    <button mat-raised-button color="warn" type="submit" (click)="cancel()">Cancel</button>
   </form>
 </div>

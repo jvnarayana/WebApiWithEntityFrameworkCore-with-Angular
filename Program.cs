@@ -9,6 +9,12 @@ using WebApplication1.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("StudentDBConnection");
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+var envArgument = args.FirstOrDefault(x => x.StartsWith("--environment"));
+var environmentName = envArgument?.Split('=')[1] ?? "Development";
+builder.Configuration.AddJsonFile($"appsettings.{environmentName}.json", optional: false, reloadOnChange: true);
+var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
 builder.Services.AddDbContext<StudentsDBContext>(x => x.UseSqlServer(connectionString));
 // Add services to the container.
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));

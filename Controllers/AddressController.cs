@@ -14,9 +14,9 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class AddressController : ControllerBase
     {
-        private readonly IGenericRepository<Address> _addressRepository;
+        private readonly IGenericRepository<Address?> _addressRepository;
 
-        public AddressController(IGenericRepository<Address> addressRepository)
+        public AddressController(IGenericRepository<Address?> addressRepository)
         {
             _addressRepository = addressRepository;
         }
@@ -45,7 +45,7 @@ namespace WebApplication1.Controllers
         // PUT: api/Address/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAddress(int id, Address address)
+        public async Task<IActionResult> PutAddress(int id, Address? address)
         {
             if (id != address.AddressId)
             {
@@ -73,7 +73,7 @@ namespace WebApplication1.Controllers
         // POST: api/Address
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Address>> PostAddress(Address address)
+        public async Task<ActionResult<Address>> PostAddress(Address? address)
         {
             await _addressRepository.AddAsync(address);
             return CreatedAtAction("GetAddress", new { id = address.AddressId }, address);

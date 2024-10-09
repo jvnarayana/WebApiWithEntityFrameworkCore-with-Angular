@@ -23,6 +23,7 @@ import {JwtInterceptor} from "./interceptors/jwt.interceptor";
 import {JwtModule} from "@auth0/angular-jwt";
 import {AuthService} from "./services/auth.service";
 import {LoginComponent} from "./component/login/login.component";
+import {MatSelectModule} from "@angular/material/select";
 
 
 export function tokenGetter(){
@@ -40,29 +41,30 @@ export function tokenGetter(){
     ConfirmDeleteDialogComponent,
     LoginComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatInputModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatCardModule,
-    MatDialogModule,
-    MatPaginatorModule,
-    JwtModule.forRoot({
-      config: {
-         tokenGetter: tokenGetter,
-        allowedDomains:['localhost:5081'],
-        disallowedRoutes: []
-      }
-    })
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatInputModule,
+        MatTableModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatCardModule,
+        MatDialogModule,
+        MatPaginatorModule,
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter,
+                allowedDomains: ['localhost:5081'],
+                disallowedRoutes: []
+            }
+        }),
+        MatSelectModule
+    ],
   providers: [
     AuthService,{
      provide: HTTP_INTERCEPTORS,
