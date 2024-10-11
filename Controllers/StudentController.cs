@@ -49,7 +49,7 @@ namespace WebApplication1.Controllers
                  
                 var cacheStudentsOptions = new DistributedCacheEntryOptions
                 {
-                    AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(1)
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(30)
 
                 };
                 await _cache.SetStringAsync(cacheKey, JsonConvert.SerializeObject(studentsList), cacheStudentsOptions);
@@ -76,7 +76,7 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
 
-            var cacheStudentObject = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromHours(1));
+            var cacheStudentObject = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(30));
             var serializeStudent = JsonSerializer.Serialize(student);
             await _cache.SetStringAsync(cacheKey, serializeStudent, cacheStudentObject);
 
@@ -86,18 +86,47 @@ namespace WebApplication1.Controllers
         // PUT: api/Student/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutStudent(int id, Student? student)
+        public async Task<IActionResult> PutStudent(int id, StudentCreateDTO? studentDTO)
         {
-            if (id != student.Id)
+            if (id != studentDTO.Id)
             {
                 return BadRequest();
             }
 
+           
+            var student = new Student
+            { 
+                Id = studentDTO.Id,
+                FirstName = studentDTO.FirstName,
+                LastName = studentDTO.LastName,
+                AddressId = studentDTO.AddressId,
+                City = studentDTO.City,
+                Address = null
+            };
+            var studentCacheList = new List<Student>();
+            var studentCacheRemove = new Student();
             try
             {
-                _studentRepository.UpdateAsync(student);
-                string cacheKey = $"Student_{id}";
-                await _cache.RemoveAsync(cacheKey);
+                var cacheKey = "StudentList";
+                var studentCache = await _cache.GetStringAsync(cacheKey);
+                if (studentCache != null)
+                {
+                    studentCacheList = JsonConvert.DeserializeObject<List<Student>>(studentCache);
+                }
+               
+                if (studentCacheList != null && studentCacheList.Count > 0)
+                {
+                    studentCacheRemove = studentCacheList?.FirstOrDefault(x => x.Id == id);  
+                    studentCacheList?.Remove(studentCacheRemove);
+                }
+                await _studentRepository.UpdateAsync(student);
+                studentCacheRemove = await _studentRepository.GetByIdAsync(id, x=>x.Address);
+                studentCacheList?.Add(studentCacheRemove);
+                var cacheOptions = new DistributedCacheEntryOptions
+                {
+                 AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(30)
+                };
+                await _cache.SetStringAsync(cacheKey, JsonConvert.SerializeObject(studentCacheList), cacheOptions);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -111,7 +140,7 @@ namespace WebApplication1.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok();
         }
 
         // POST: api/Student
@@ -130,18 +159,41 @@ namespace WebApplication1.Controllers
             await _studentRepository.AddAsync(student);
             string cacheKey = "StudentList";
             await _cache.RemoveAsync(cacheKey);
-            return CreatedAtAction("GetStudents", student);
+            var studentsList = await _studentRepository
+                .GetAll()
+                .Include(s => s.Address)
+                .ToListAsync();
+            var cacheOptions = new DistributedCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(30)
+            };
+            await _cache.SetStringAsync(cacheKey, JsonConvert.SerializeObject(studentsList), cacheOptions);
+            return CreatedAtAction("GetStudents", studentsList);
         }
 
         // DELETE: api/Student/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStudent(int id)
         {
+            string cacheKey = "StudentList";
+            string cacheStudents = await _cache.GetStringAsync(cacheKey);
+            var studentCacheList = JsonConvert.DeserializeObject<List<Student>>(cacheStudents);
+            var studentRemove = studentCacheList?.FirstOrDefault(x => x.Id == id);
+            if (studentRemove == null)
+            {
+                return NotFound($"Unable to find this student ID {studentRemove.Id}");
+            }
             var student = await _studentRepository.GetByIdAsync(id);
             await _studentRepository.DeleteAsync(student);
-            string cacheKey = $"Student_{id}";
-            await _cache.RemoveAsync(cacheKey);
-            return NoContent();
+            studentCacheList.Remove(studentRemove);
+            var cacheOptions = new DistributedCacheEntryOptions
+            {
+              AbsoluteExpirationRelativeToNow   = TimeSpan.FromHours(1)
+            };
+            await _cache.SetStringAsync(cacheKey, JsonConvert.SerializeObject(studentCacheList), cacheOptions);
+            string individualCacheKey = $"Student_{id}";
+            await _cache.RemoveAsync(individualCacheKey);
+            return Ok(studentCacheList);
         }
 
         private bool StudentExists(int id)

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {StudentService} from "../../services/student.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Address} from "../../models/student.model";
+import {AddressService} from "../../services/address.service";
+
 
 
 @Component({
@@ -12,10 +15,12 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class StudentEditComponent implements OnInit {
   studentForm!: FormGroup;
   studentId!: number;
+  addresses: Address[] =[];
 
   constructor(
     private fb: FormBuilder,
     private studentService: StudentService,
+    private addressService: AddressService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -23,7 +28,8 @@ export class StudentEditComponent implements OnInit {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       city: ['', [Validators.required]],
-      address: ['', [Validators.required]]
+      addressId: ['', [Validators.required]],
+      address: ['']
     });
   }
 
@@ -33,13 +39,16 @@ export class StudentEditComponent implements OnInit {
   }
   loadStudentData(): void{
     this.studentService.getStudentByID(this.studentId).subscribe((student) => {
-      const fullAddress = `${student.address.streetNumber || ''} ${student.address.city || ''} ${student.address.state || ''} ${student.address.zipcode || ''}`;
+      //const fullAddress = `${student.address.streetNumber || ''} ${student.address.city || ''} ${student.address.state || ''} ${student.address.zipcode || ''}`;
+      this.addressService.getAddresses().subscribe(studentAddress => {
+        this.addresses = studentAddress;
 
+      })
       this.studentForm.patchValue({
         firstName: student.firstName,
         lastName: student.lastName,
         city: student.city,
-        address: fullAddress.trim()
+        addressId: student.addressId
       });
     });
   }
