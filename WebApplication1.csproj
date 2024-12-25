@@ -8,8 +8,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Client\student-management\src\app\component\" />
+      <Folder Include="Client\student-management\src\app\component\address\" />
+      <Folder Include="Client\student-management\src\app\component\student\" />
       <Folder Include="Client\student-management\src\app\interceptors\" />
+      <Folder Include="Logs\" />
       <Folder Include="Services" />
     </ItemGroup>
 
@@ -31,6 +33,13 @@
       </PackageReference>
       <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.14" />
       <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="2.8.16" />
+      <PackageReference Include="Serilog" Version="4.2.0" />
+      <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+      <PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0" />
+      <PackageReference Include="Serilog.Settings.Configuration" Version="9.0.0" />
+      <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+      <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+      <PackageReference Include="Serilog.Sinks.Seq" Version="9.0.0" />
       <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
       <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
       <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
@@ -42,6 +51,7 @@
       <None Remove="Migrations\**" />
       <None Remove="Client\student-management\src\app\student-delete\**" />
       <None Remove="Client\student-management\src\app\src\**" />
+      <None Remove="Client\student-management\src\app\register\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -53,18 +63,21 @@
       <Compile Remove="Controllers\UsersController.cs" />
       <Compile Remove="Client\student-management\src\app\student-delete\**" />
       <Compile Remove="Client\student-management\src\app\src\**" />
+      <Compile Remove="Client\student-management\src\app\register\**" />
     </ItemGroup>
 
     <ItemGroup>
       <EmbeddedResource Remove="Migrations\**" />
       <EmbeddedResource Remove="Client\student-management\src\app\student-delete\**" />
       <EmbeddedResource Remove="Client\student-management\src\app\src\**" />
+      <EmbeddedResource Remove="Client\student-management\src\app\register\**" />
     </ItemGroup>
 
     <ItemGroup>
       <Content Remove="Migrations\**" />
       <Content Remove="Client\student-management\src\app\student-delete\**" />
       <Content Remove="Client\student-management\src\app\src\**" />
+      <Content Remove="Client\student-management\src\app\register\**" />
     </ItemGroup>
 
 </Project>

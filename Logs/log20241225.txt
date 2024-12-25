@@ -1,0 +1,41 @@
+2024-12-25 15:07:46.876 -06:00 [WRN] Failed to determine the https port for redirect.
+2024-12-25 15:07:47.092 -06:00 [INF] Login API Call started
+2024-12-25 15:07:48.170 -06:00 [INF] Gathered User details from Auth Get API call
+2024-12-25 15:07:48.356 -06:00 [INF] Login succesfull
+2024-12-25 15:13:18.628 -06:00 [WRN] Failed to determine the https port for redirect.
+2024-12-25 15:13:18.821 -06:00 [INF] Auth-Login
+2024-12-25 15:13:19.903 -06:00 [INF] Auth-Login
+2024-12-25 15:13:20.088 -06:00 [INF] Auth-Login
+2024-12-25 15:17:46.320 -06:00 [WRN] Failed to determine the https port for redirect.
+2024-12-25 15:17:46.516 -06:00 [INF]  [{controllerName}.{actionMethodName}] Login API Call started
+2024-12-25 15:17:47.603 -06:00 [INF] [{controllerName}.{actionMethodName}]  Gathered User details from Auth Get API call
+2024-12-25 15:17:47.788 -06:00 [INF] [{controllerName}.{actionMethodName}]  Login successful
+2024-12-25 15:18:28.089 -06:00 [WRN] Failed to determine the https port for redirect.
+2024-12-25 15:18:28.280 -06:00 [INF]  [{Controller}.{Action}] Login API Call started
+2024-12-25 15:18:29.337 -06:00 [INF] [{Controller}.{Action}]  Gathered User details from Auth Get API call
+2024-12-25 15:18:29.522 -06:00 [INF] [{Controller}.{Action}]  Login successful
+2024-12-25 15:19:39.485 -06:00 [WRN] Failed to determine the https port for redirect.
+2024-12-25 15:19:39.663 -06:00 [INF]  [{Controller}.{Action}] Login API Call started
+2024-12-25 15:19:40.731 -06:00 [INF] [{Controller}.{Action}]  Gathered User details from Auth Get API call
+2024-12-25 15:19:40.915 -06:00 [INF] [{Controller}.{Action}]  Login successful
+2024-12-25 21:22:58.421 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed.
+2024-12-25 15:23:27.958 -06:00 [WRN] Failed to determine the https port for redirect.
+2024-12-25 15:23:28.192 -06:00 [INF]  [Auth.Login] Login API Call started
+2024-12-25 15:23:29.259 -06:00 [INF] [Auth.Login] Gathered User details from Auth Get API call
+2024-12-25 15:23:29.443 -06:00 [INF] [Auth.Login]  Login successful
+2024-12-25 15:44:54.613 -06:00 [INF] API call started
+2024-12-25 15:44:54.692 -06:00 [WRN] Failed to determine the https port for redirect.
+2024-12-25 15:44:54.719 -06:00 [INF] API call started
+2024-12-25 15:44:54.720 -06:00 [INF] API call ended
+2024-12-25 15:44:54.838 -06:00 [INF]  GetUserByUserNameAsync api Call started
+2024-12-25 15:44:55.946 -06:00 [INF]  GetUserByUserNameAsync api Call returns the data
+2024-12-25 15:44:56.138 -06:00 [INF] Login Successful
+2024-12-25 15:44:56.248 -06:00 [INF] API call ended
+2024-12-25 15:44:57.696 -06:00 [INF] API call started
+2024-12-25 15:44:57.697 -06:00 [INF] API call ended
+2024-12-25 15:45:07.709 -06:00 [INF] API call started
+2024-12-25 15:45:07.710 -06:00 [INF] API call ended
+2024-12-25 15:45:27.731 -06:00 [INF] API call started
+2024-12-25 15:45:27.734 -06:00 [INF] API call ended
+2024-12-25 15:46:07.747 -06:00 [INF] API call started
+2024-12-25 15:46:07.747 -06:00 [INF] API call ended

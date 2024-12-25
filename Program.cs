@@ -6,6 +6,8 @@ using Microsoft.IdentityModel.Tokens;
 using WebApplication1;
 using WebApplication1.Entities;
 using Microsoft.Extensions.Caching.Distributed;
+using Serilog;
+using WebApplication1.Middleware;
 using WebApplication1.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,14 @@ var environmentName = envArgument?.Split('=')[1] ?? "Development";
 builder.Configuration.AddJsonFile($"appsettings.{environmentName}.json", optional: false, reloadOnChange: true);
 var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext() // Enables dynamic logging context
+    .WriteTo.Console(outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level:u3}] [{Controller}.{Action}] [User:{UserName}] [Machine:{Machine}] [RequestId:{RequestId}] [IP:{IPAddress}] {Message:lj}{NewLine}{Exception}")
+    .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day,
+        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level:u3}] [{Controller}.{Action}] [User:{UserName}] [Machine:{Machine}] [RequestId:{RequestId}] [IP:{IPAddress}] {Message:lj}{NewLine}{Exception}")
+    .CreateLogger();
+builder.Host.UseSerilog();
 builder.Services.AddDbContext<StudentsDBContext>(x => x.UseSqlServer(connectionString));
 // Add services to the container.
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
@@ -60,7 +70,6 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -78,6 +87,8 @@ app.UseSwagger(options =>
     options.SerializeAsV2 = true;
 });
 app.UseRouting();
+app.UseMiddleware<LoggingMiddleware>();
+
 app.UseCors("AllowSpecificOrigin");
 app.UseAuthorization();
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {StudentService} from "../../services/student.service";
+import {StudentService} from "../../../services/student.service";
 import {MatDialog} from "@angular/material/dialog";
 import {
   ConfirmDeleteDialogComponent

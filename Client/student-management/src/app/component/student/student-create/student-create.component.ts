@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {StudentService} from "../../services/student.service";
-import {AddressService} from "../../services/address.service";
-import {Address} from "../../models/student.model";
+import {StudentService} from "../../../services/student.service";
+import {AddressService} from "../../../services/address.service";
+import {Address} from "../../../models/student.model";
 
 
 @Component({

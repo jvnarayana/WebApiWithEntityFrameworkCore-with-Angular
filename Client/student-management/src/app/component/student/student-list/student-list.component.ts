@@ -1,12 +1,12 @@
 import {Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
-import {StudentService} from "../../services/student.service";
-import {Student} from "../../models/student.model";
+import {Student} from "../../../models/student.model";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
 import {error} from "@angular/compiler-cli/src/transformers/util";
 import {Event, Router} from "@angular/router";
 import {filter} from "rxjs";
-import {AuthService} from "../../services/auth.service";
+import {StudentService} from "../../../services/student.service";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-student-list',

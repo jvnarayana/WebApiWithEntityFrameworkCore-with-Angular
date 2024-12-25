@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using WebApplication1.DTO;
 using WebApplication1.Entities;
 using WebApplication1.Repositories;
@@ -42,12 +43,19 @@ public class AuthController : ControllerBase
         [HttpGet("Login")]
         public async Task<IActionResult> Login([FromQuery] string userName, [FromQuery] string password)
         {
+            var controllerName = ControllerContext.ActionDescriptor.ControllerName;
+            var actionMethodName =  ControllerContext.ActionDescriptor.ActionName;
+            
+            Log.Information(" GetUserByUserNameAsync api Call started");            
             var user = await _userRepository.GetUserByUserNameAsync(userName);
+            Log.Information(" GetUserByUserNameAsync api Call returns the data");            
+
             if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
             {
+                Log.Error("Invalid username and password supplied");
                 return Unauthorized("Invalid Creds");
             }
-
+            Log.Information("Login Successful");
             var jwtToken = GenerateJWTToken(user);
             return Ok( new { token = jwtToken});
 

@@ -1,0 +1,97 @@
+2024-12-25 15:07:46 [WRN] Failed to determine the https port for redirect.
+2024-12-25 15:07:47 [INF] Login API Call started
+2024-12-25 15:07:48 [INF] Gathered User details from Auth Get API call
+2024-12-25 15:07:48 [INF] Login succesfull
+2024-12-25 15:13:18 [WRN] Failed to determine the https port for redirect.
+2024-12-25 15:13:18 [INF] Auth-Login
+2024-12-25 15:13:19 [INF] Auth-Login
+2024-12-25 15:13:20 [INF] Auth-Login
+2024-12-25 15:17:46 [WRN] Failed to determine the https port for redirect.
+2024-12-25 15:17:46 [INF]  [{controllerName}.{actionMethodName}] Login API Call started
+2024-12-25 15:17:47 [INF] [{controllerName}.{actionMethodName}]  Gathered User details from Auth Get API call
+2024-12-25 15:17:47 [INF] [{controllerName}.{actionMethodName}]  Login successful
+2024-12-25 15:18:28 [WRN] Failed to determine the https port for redirect.
+2024-12-25 15:18:28 [INF]  [{Controller}.{Action}] Login API Call started
+2024-12-25 15:18:29 [INF] [{Controller}.{Action}]  Gathered User details from Auth Get API call
+2024-12-25 15:18:29 [INF] [{Controller}.{Action}]  Login successful
+2024-12-25 15:19:39 [WRN] Failed to determine the https port for redirect.
+2024-12-25 15:19:39 [INF]  [{Controller}.{Action}] Login API Call started
+2024-12-25 15:19:40 [INF] [{Controller}.{Action}]  Gathered User details from Auth Get API call
+2024-12-25 15:19:40 [INF] [{Controller}.{Action}]  Login successful
+2024-12-25 21:22:58 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed.
+2024-12-25 15:23:27 [WRN] Failed to determine the https port for redirect.
+2024-12-25 15:23:28 [INF]  [Auth.Login] Login API Call started
+2024-12-25 15:23:29 [INF] [Auth.Login] Gathered User details from Auth Get API call
+2024-12-25 15:23:29 [INF] [Auth.Login]  Login successful
+2024-12-25 15:44:54 [INF] API call started
+2024-12-25 15:44:54 [WRN] Failed to determine the https port for redirect.
+2024-12-25 15:44:54 [INF] API call started
+2024-12-25 15:44:54 [INF] API call ended
+2024-12-25 15:44:54 [INF]  GetUserByUserNameAsync api Call started
+2024-12-25 15:44:55 [INF]  GetUserByUserNameAsync api Call returns the data
+2024-12-25 15:44:56 [INF] Login Successful
+2024-12-25 15:44:56 [INF] API call ended
+2024-12-25 15:44:57 [INF] API call started
+2024-12-25 15:44:57 [INF] API call ended
+2024-12-25 15:45:07 [INF] API call started
+2024-12-25 15:45:07 [INF] API call ended
+2024-12-25 15:45:27 [INF] API call started
+2024-12-25 15:45:27 [INF] API call ended
+2024-12-25 15:46:07 [INF] API call started
+2024-12-25 15:46:07 [INF] API call ended
+2024-12-25 15:47:21 [INF] API call started
+2024-12-25 15:47:21 [WRN] Failed to determine the https port for redirect.
+2024-12-25 15:47:21 [INF] API call started
+2024-12-25 15:47:21 [INF] API call ended
+2024-12-25 15:47:21 [INF]  GetUserByUserNameAsync api Call started
+2024-12-25 15:47:22 [INF]  GetUserByUserNameAsync api Call returns the data
+2024-12-25 15:47:22 [INF] Login Successful
+2024-12-25 15:47:23 [INF] API call ended
+2024-12-25 15:47:24 [INF] API call started
+2024-12-25 15:47:24 [INF] API call ended
+2024-12-25 15:47:34 [INF] API call started
+2024-12-25 15:47:34 [INF] API call ended
+2024-12-25 15:47:54 [INF] API call started
+2024-12-25 15:47:54 [INF] API call ended
+2024-12-25 15:48:34 [INF] API call started
+2024-12-25 15:48:34 [INF] API call ended
+Id:|f31bbb59-47b9248d15e39081.] [IP:::1]  GetUserByUserNameAsync api Call started
+2024-12-25 15:47:22 [INF] [null.null] [User:Anonymus] [Machine:Venkatas-MacBook-Pro] [RequestId:|f31bbb59-47b9248d15e39081.] [IP:::1]  GetUserByUserNameAsync api Call returns the data
+2024-12-25 15:47:22 [INF] [null.null] [User:Anonymus] [Machine:Venkatas-MacBook-Pro] [RequestId:|f31bbb59-47b9248d15e39081.] [IP:::1] Login Successful
+2024-12-25 15:47:23 [INF] [null.null] [User:Anonymus] [Machine:Venkatas-MacBook-Pro] [RequestId:|f31bbb59-47b9248d15e39081.] [IP:::1] API call ended
+2024-12-25 15:47:24 [INF] [null.null] [User:Anonymus] [Machine:Venkatas-MacBook-Pro] [RequestId:|f31bbb5b-47b9248d15e39081.] [IP:::1] API call started
+2024-12-25 15:47:24 [INF] [null.null] [User:Anonymus] [Machine:Venkatas-MacBook-Pro] [RequestId:|f31bbb5b-47b9248d15e39081.] [IP:::1] API call ended
+2024-12-25 15:47:34 [INF] [null.null] [User:Anonymus] [Machine:Venkatas-MacBook-Pro] [RequestId:|f31bbb5c-47b9248d15e39081.] [IP:::1] API call started
+2024-12-25 15:47:34 [INF] [null.null] [User:Anonymus] [Machine:Venkatas-MacBook-Pro] [RequestId:|f31bbb5c-47b9248d15e39081.] [IP:::1] API call ended
+2024-12-25 15:47:54 [INF] [null.null] [User:Anonymus] [Machine:Venkatas-MacBook-Pro] [RequestId:|f31bbb5d-47b9248d15e39081.] [IP:::1] API call started
+2024-12-25 15:47:54 [INF] [null.null] [User:Anonymus] [Machine:Venkatas-MacBook-Pro] [RequestId:|f31bbb5d-47b9248d15e39081.] [IP:::1] API call ended
+2024-12-25 15:48:34 [INF] [null.null] [User:Anonymus] [Machine:Venkatas-MacBook-Pro] [RequestId:|f31bbb5e-47b9248d15e39081.] [IP:::1] API call started
+2024-12-25 15:48:34 [INF] [null.null] [User:Anonymus] [Machine:Venkatas-MacBook-Pro] [RequestId:|f31bbb5e-47b9248d15e39081.] [IP:::1] API call ended
+2024-12-25 15:52:51 [WRN] Failed to determine the https port for redirect.
+2024-12-25 15:52:51 [INF] API call started
+2024-12-25 15:52:51 [INF] API call started
+2024-12-25 15:52:51 [INF] API call ended
+2024-12-25 15:52:51 [INF]  GetUserByUserNameAsync api Call started
+2024-12-25 15:52:52 [INF]  GetUserByUserNameAsync api Call returns the data
+2024-12-25 15:52:53 [INF] Login Successful
+2024-12-25 15:52:53 [INF] API call ended
+2024-12-25 15:52:55 [INF] API call started
+2024-12-25 15:52:55 [INF] API call ended
+2024-12-25 15:53:05 [INF] API call started
+2024-12-25 15:53:05 [INF] API call ended
+2024-12-25 15:53:25 [INF] API call started
+2024-12-25 15:53:25 [INF] API call ended
+2024-12-25 15:54:05 [INF] API call started
+2024-12-25 15:54:05 [INF] API call ended
+b8279fa-42dfd54ed3a2d173.] [IP:::1]  GetUserByUserNameAsync api Call started
+2024-12-25 15:52:52 [INF] [Auth.Login] [User:Anonymus] [Machine:Venkatas-MacBook-Pro] [RequestId:|9b8279fa-42dfd54ed3a2d173.] [IP:::1]  GetUserByUserNameAsync api Call returns the data
+2024-12-25 15:52:53 [INF] [Auth.Login] [User:Anonymus] [Machine:Venkatas-MacBook-Pro] [RequestId:|9b8279fa-42dfd54ed3a2d173.] [IP:::1] Login Successful
+2024-12-25 15:52:53 [INF] [Auth.Login] [User:Anonymus] [Machine:Venkatas-MacBook-Pro] [RequestId:|9b8279fa-42dfd54ed3a2d173.] [IP:::1] API call ended
+2024-12-25 15:52:55 [INF] [null.null] [User:Anonymus] [Machine:Venkatas-MacBook-Pro] [RequestId:|9b8279fc-42dfd54ed3a2d173.] [IP:::1] API call started
+2024-12-25 15:52:55 [INF] [null.null] [User:Anonymus] [Machine:Venkatas-MacBook-Pro] [RequestId:|9b8279fc-42dfd54ed3a2d173.] [IP:::1] API call ended
+2024-12-25 15:53:05 [INF] [null.null] [User:Anonymus] [Machine:Venkatas-MacBook-Pro] [RequestId:|9b8279fd-42dfd54ed3a2d173.] [IP:::1] API call started
+2024-12-25 15:53:05 [INF] [null.null] [User:Anonymus] [Machine:Venkatas-MacBook-Pro] [RequestId:|9b8279fd-42dfd54ed3a2d173.] [IP:::1] API call ended
+2024-12-25 15:53:25 [INF] [null.null] [User:Anonymus] [Machine:Venkatas-MacBook-Pro] [RequestId:|9b8279fe-42dfd54ed3a2d173.] [IP:::1] API call started
+2024-12-25 15:53:25 [INF] [null.null] [User:Anonymus] [Machine:Venkatas-MacBook-Pro] [RequestId:|9b8279fe-42dfd54ed3a2d173.] [IP:::1] API call ended
+2024-12-25 15:54:05 [INF] [null.null] [User:Anonymus] [Machine:Venkatas-MacBook-Pro] [RequestId:|9b8279ff-42dfd54ed3a2d173.] [IP:::1] API call started
+2024-12-25 15:54:05 [INF] [null.null] [User:Anonymus] [Machine:Venkatas-MacBook-Pro] [RequestId:|9b8279ff-42dfd54ed3a2d173.] [IP:::1] API call ended

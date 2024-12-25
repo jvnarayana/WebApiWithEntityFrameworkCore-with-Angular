@@ -15,17 +15,21 @@ namespace WebApplication1.Controllers
     public class AddressController : ControllerBase
     {
         private readonly IGenericRepository<Address?> _addressRepository;
+        private readonly ILogger<AddressController> _logger;
 
-        public AddressController(IGenericRepository<Address?> addressRepository)
+        public AddressController(IGenericRepository<Address?> addressRepository, ILogger<AddressController> logger)
         {
             _addressRepository = addressRepository;
+            _logger = logger;
         }
 
         // GET: api/Address
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Address>>> GetAddresses()
         {
+            _logger.LogInformation("API Call started");
             return Ok(await _addressRepository.GetAllAsync());
+            
         }
 
         // GET: api/Address/5
